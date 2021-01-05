@@ -1,0 +1,319 @@
+/* 一些全部应用的初始化CSS */
+li{
+  list-style: none;
+  font-size: small;
+}
+a:link{
+  color: #0074ff;
+}
+
+a:visited{
+  color: #252854;
+}
+/* 表单 */
+#app {
+  width: 700px;
+  height: 300px;
+  margin: 0 auto;
+  margin-top: 0;
+}
+
+/* navigator */
+.wrapper {
+  background: #252854;
+  width: 100%;
+  height: 100px;
+  border-radius: 5px;
+  position: fixed;
+  z-index: 10;
+}
+.container {
+  height: 500px;
+}
+.text {
+  flex: 0 0 100%;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #00000000;
+  text-align: center;
+  font-family: "Lato", sans-serif;
+  position: absolute;
+  left: 120px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-bottom: 1px solid #d4d7ff;
+  border-top: 1px solid #d4d7ff;
+  background: url(../logo/source.gif);
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.text:after {
+  content: attr(data-text);
+  -webkit-text-stroke: 1.5px #d4d7ff;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -49%);
+  background: url(../logo/source.gif);
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-size: 43%;
+}
+
+.demo {
+  background: #2c2c54;
+}
+/* 闪烁字体 */
+.text-effect {
+  color: #fff;
+  font-family: "Lato", sans-serif;
+  font-size: 100px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+  position: relative;
+}
+.text-effect span {
+  animation: animate linear 2000ms infinite;
+}
+.text-effect span:nth-child(1n) {
+  animation-delay: 0s;
+}
+.text-effect span:nth-child(2n) {
+  animation-delay: 100ms;
+}
+.text-effect span:nth-child(3n) {
+  animation-delay: 200ms;
+}
+.text-effect span:nth-child(4n) {
+  animation-delay: 300ms;
+}
+.text-effect span:nth-child(5n) {
+  animation-delay: 400ms;
+}
+.text-effect span:nth-child(6n) {
+  animation-delay: 500ms;
+}
+.text-effect span:nth-child(7n) {
+  animation-delay: 600ms;
+}
+.text-effect span:nth-child(8n) {
+  animation-delay: 700ms;
+}
+.text-effect span:nth-child(9n) {
+  animation-delay: 800ms;
+}
+.text-effect span:nth-child(10n) {
+  animation-delay: 900ms;
+}
+
+@keyframes animate {
+  0% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1;
+    text-shadow: 0 0 80px #252854, 0 0 30px #252854, 0 0 6px #252854;
+  }
+}
+@media only screen and (max-width: 990px) {
+  .text-effect {
+    font-size: 65px;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .text-effect {
+    font-size: 50px;
+  }
+}
+@media only screen and (max-width: 479px) {
+  .text-effect {
+    font-size: 36px;
+  }
+}
+@media only screen and (max-width: 359px) {
+  .text-effect {
+    font-size: 27px;
+  }
+}
+
+/* 在分数没有达到之前的闪烁字体 */
+.text-effect2 {
+  color: #fff;
+  font-family: "Lato", sans-serif;
+  font-size: 100px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+  position: relative;
+}
+.text-effect2 span {
+  animation: animate2 linear 2000ms infinite;
+}
+.text-effect2 span:nth-child(1n) {
+  animation-delay: 0s;
+}
+.text-effect2 span:nth-child(2n) {
+  animation-delay: 100ms;
+}
+.text-effect2 span:nth-child(3n) {
+  animation-delay: 200ms;
+}
+.text-effect2 span:nth-child(4n) {
+  animation-delay: 300ms;
+}
+.text-effect2 span:nth-child(5n) {
+  animation-delay: 400ms;
+}
+.text-effect2 span:nth-child(6n) {
+  animation-delay: 500ms;
+}
+.text-effect2 span:nth-child(7n) {
+  animation-delay: 600ms;
+}
+.text-effect2 span:nth-child(8n) {
+  animation-delay: 700ms;
+}
+.text-effect2 span:nth-child(9n) {
+  animation-delay: 800ms;
+}
+.text-effect2 span:nth-child(10n) {
+  animation-delay: 900ms;
+}
+
+@keyframes animate2 {
+  0% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1;
+    text-shadow: 0 0 80px #df1033, 0 0 30px #df1033, 0 0 6px #df1033;
+  }
+}
+@media only screen and (max-width: 990px) {
+  .text-effect {
+    font-size: 65px;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .text-effect {
+    font-size: 50px;
+  }
+}
+@media only screen and (max-width: 479px) {
+  .text-effect {
+    font-size: 36px;
+  }
+}
+@media only screen and (max-width: 359px) {
+  .text-effect {
+    font-size: 27px;
+  }
+}
+/* 分数高的闪烁字体 */
+.text-effect3 {
+  color: #fff;
+  font-family: "Lato", sans-serif;
+  font-size: 100px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+  position: relative;
+}
+.text-effect3 span {
+  animation: animate3 linear 2000ms infinite;
+}
+.text-effect3 span:nth-child(1n) {
+  animation-delay: 0s;
+}
+.text-effect3 span:nth-child(2n) {
+  animation-delay: 100ms;
+}
+.text-effect3 span:nth-child(3n) {
+  animation-delay: 200ms;
+}
+.text-effect3 span:nth-child(4n) {
+  animation-delay: 300ms;
+}
+.text-effect3 span:nth-child(5n) {
+  animation-delay: 400ms;
+}
+.text-effect3 span:nth-child(6n) {
+  animation-delay: 500ms;
+}
+.text-effect3 span:nth-child(7n) {
+  animation-delay: 600ms;
+}
+.text-effect3 span:nth-child(8n) {
+  animation-delay: 700ms;
+}
+.text-effect3 span:nth-child(9n) {
+  animation-delay: 800ms;
+}
+.text-effect3 span:nth-child(10n) {
+  animation-delay: 900ms;
+}
+
+@keyframes animate3 {
+  0% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1;
+    text-shadow: 0 0 80px #4fd693, 0 0 30px #4fd693, 0 0 6px  #4fd693;
+  }
+}
+@media only screen and (max-width: 990px) {
+  .text-effect {
+    font-size: 65px;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .text-effect {
+    font-size: 50px;
+  }
+}
+@media only screen and (max-width: 479px) {
+  .text-effect {
+    font-size: 36px;
+  }
+}
+@media only screen and (max-width: 359px) {
+  .text-effect {
+    font-size: 27px;
+  }
+}
+/* 输入表单 */
+.elForm {
+  color: #0074ff;
+  /* text-shadow: 0 1px hsl(0, 0%, 85%), 0 2px hsl(0, 0%, 80%),
+    0 3px hsl(0, 0%, 75%), 0 4px hsl(0, 0%, 70%), 0 5px hsl(0, 0%, 65%),
+    0 5px 10px black; */
+  font-size: 30px;
+  font-family: "Microsoft YaHei";
+}
+
+.elLine {
+  color: #000;
+  font-size: 30px;
+  text-align: center;
+  text-shadow: none;
+}
+.elClear {
+  text-shadow: none;
+}
+
+
+#arti{
+  background-color:#ecedf5;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: small;
+  line-height: 35px;
+}

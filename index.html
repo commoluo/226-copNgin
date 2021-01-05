@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- element-ui -->
+  <link rel="stylesheet" href="/css/element-ui.css">
+  <!-- 本地css -->
+  <link rel= "stylesheet" href="/css/index.css">
+  <link href="css/bootstrap.css" rel="stylesheet">
+</head>
+<body>
+  <!-- 头部条 -->
+  <div class= "wrapper">
+    <div class= "text" data-text= "copNGIN">copNGIN</div>
+  </div>
+  <!-- 表单 -->
+  <div id = "app" style="padding-top: 110px;">
+    <div id= "search" v-if="isSearch">
+      <!-- 闪烁大字 -->
+      <div class="text-effect">
+        <span>c</span>
+        <span>o</span>
+        <span>p</span>
+        <span>N</span>
+        <span>G</span>
+        <span>I</span>
+        <span>N</span>
+        <span>搜索</span>
+      </div>
+      <el-form ref="form" :model="form" label-width="80px">
+        <el-form-item class="elForm" label="姓名">
+          <el-input v-model="form.name" placeholder="请输入姓名"></el-input>
+        </el-form-item>
+        <el-form-item class="elForm" label="电话">
+          <el-input v-model="form.telNumber" placeholder="请输入电话"></el-input>
+        </el-form-item>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item class="elForm" label="关键词">
+              <el-input v-model="form.keyWord" placeholder="请输入关键词" style="width: 284.16px;"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item class="elForm" label="学校">
+              <el-col :span="12">
+                <el-autocomplete class="inline-input" v-model="state2" :fetch-suggestions="querySearch" placeholder="请输入学校"
+                  :trigger-on-focus="false" @select="handleSelect" style="width: 245px;"></el-autocomplete>
+              </el-col>
+            </el-form-item>
+          </el-col>
+        </el-row>      
+        <el-form-item class="elForm" label="有效时间">
+          <el-col :span="11">
+            <el-date-picker class="elClear" type="date" placeholder="选择开始日期" v-model="form.beginDate" style="width: 100%;"></el-date-picker>
+          </el-col>
+          <el-col class="elLine" :span="1">-</el-col>
+          <el-col :span="11">
+            <el-date-picker class="elClear" type="date" placeholder="选择截止日期" v-model="form.endDate" style="width: 100%;"></el-date-picker>
+          </el-col>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="onSubmit">立即创建</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+    <div id= "result" v-else>
+      <!-- 闪烁大字 -->
+      <div class="text-effect">
+        <span>c</span>
+        <span>o</span>
+        <span>p</span>
+        <span>N</span>
+        <span>G</span>
+        <span>I</span>
+        <span>N</span>
+        <span>结果</span>
+      </div>
+      <!-- 返回的基本信息列表 -->
+      <ul>
+        <li style="margin-top: 20px ; list-style: none; font-size:large; padding: 15px 15px 15px 15px; border-radius: 4px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)" v-for="(item, index) in rawRes" :key="index">
+          <a style="text-decoration: none; font-size: x-large;" href = "#" @click="showMessage(item)">{{item.title}}</a><br>
+          预览：{{item.abstract}}
+          <!-- 在每个链接点击后显示详情文章 -->
+          <div id="arti" v-show="item.flag">
+            --{{artical.content}} 
+          </div>
+          <div v-show="item.flag">
+            <div class="text-effect3" v-if="item.score >85 " >
+              <span>{{item.score}}</span>
+            </div>
+            <div class="text-effect2" v-else-if="item.score &lt;60" >
+              <span>{{item.score}}</span>
+            </div>
+            <div class="text-effect" v-else>
+              <span>{{item.score}}</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- vue（已保存本地） -->
+  <script src="/js/vue.js"></script>
+  <!-- axios -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <!-- element-ui （已保存本地）-->
+  <script src="/js/element-ui.js"></script>
+  <script src="/js/index.js"></script>
+
+</body>
+</html>
