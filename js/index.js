@@ -1,7 +1,24 @@
+Vue.prototype.openLoading = function() {
+  const loading = this.$loading({           // 声明一个loading对象
+    lock: true,                             // 是否锁屏
+    text: '正在加载...',                     // 加载动画的文字
+    spinner: 'el-icon-loading',             // 引入的loading图标
+    background: 'rgba(0, 0, 0, 0.3)',       // 背景颜色
+    target: '.sub-main',                    // 需要遮罩的区域
+    body: true,                              
+    customClass: 'mask'                     // 遮罩层新增类名
+  })
+  setTimeout(function () {                  // 设定定时器，超时5S后自动关闭遮罩层，避免请求失败时，遮罩层一直存在的问题
+    loading.close();                        // 关闭遮罩层
+  },5000)
+  return loading;
+}
+
 const app = new Vue({
   el:"#app",
   data() {
     return {
+      // 主题变量
       form: {
         // search表单提交变量
         name: '',
@@ -15,7 +32,7 @@ const app = new Vue({
       universities: [],
       state2: '',
       // if控件
-      isSearch: false ,
+      isSearch: true ,
       isArtical: [
         false,
       ],
@@ -26,40 +43,69 @@ const app = new Vue({
           title: "我是一个title1111",
           abstract: "我是一个非常阿萨的空间分布纽卡素加班费nas1111",
           isDetail: false,
-          score: 90
+          artical:{
+            title:'',
+            content:''
+          }
         },
         {
           url: "www.bilibili.com",
           title: "我是一个title2222",
           abstract: "我是一个非常阿萨的空间分布纽卡素加班费nas22222",
           isDetail: false,
-          score: 40
+          artical:{
+            title:'',
+            content:''
+          }
         },
         {
           url: "www.zhihu.com",
           title: "我是一个title3333",
           abstract: "我是一个非常阿萨的空间分布纽卡素加班费nas3333",
           isDetail: false,
-          score: 80
+          artical:{
+            title:'',
+            content:''
+          }
         },
         {
           url: "www.kailand.com",
           title: "我是一个title4444",
           abstract: "我是一个非常阿萨的空间分布纽卡素加班费nas44444",
           isDetail: false,
-          score: 10
+          artical:{
+            title:'',
+            content:''
+          }
         }
-      ],
-      // 详细文章
-      artical:{
-          title: '我是一个title1111',
-          content: '大家萨丕哦分破案附件怕积分披肩发怕积分撒谎的就发噶发i看不惯饭卡吧开发开发卡机回复咖啡啊发卡机发卡付款安康积分卡机房监控昂发',
-        },   
+      ], 
+      // 分数
+      score: 0, 
     }
   },
   methods: {
+    //loading
     // 检查输入
     checkInput(form) {
+      // 判断整个对象至少有一个不为空
+      let isEmpty = true ;
+      if(form.name != ''){
+        isEmpty = false 
+      }
+      if(form.telNumber != ''){
+        isEmpty = false 
+      }
+      if(form.keyWord != ''){
+        isEmpty = false 
+     }
+      if(form.school != ''){
+        sEmpty = false 
+      }
+      if (isEmpty == true){
+        alert('请输入至少一个信息！')
+        return 
+      }
+      //检查长度
       if(form.name == '') {
        alert('名字不能为空');
        return false;
@@ -68,16 +114,12 @@ const app = new Vue({
         alert('电话号码长度有误，请输入11位正确电话');
        return false;
       }
-      if(form.region == '') {
-        alert('地址不能为空');
-        return false;
-      }
       if(form.id.length != 18) {
         alert('身份证长度有误，请输入长度18的正确的身份证号码');
        return false;
       }
-      // 检验是否是数字
-      let newTelNum = form.telNumber.split('').splice(newTelNum.length -1,1);
+      检验是否是数字
+      let newTelNum = form.telNumber.split('').splice(form.telNumber.length -1,1);
       for(item of newTelNum){
         if(typeof(item) != Number){
           return false;
@@ -86,34 +128,36 @@ const app = new Vue({
     },
 
     // 点击提交的按钮控件
-    onSubmit(form) {
-      console.log('submit!');
+    onSubmit() {
       // 先验证输入的值是否合法
-      this.checkInput(form);
-      
-      Vue.set(this,'rawRes',res);
-      this.isSearch = false;
+      this.checkInput(this.form);
+      console.log('submit!');
+      const rLoading = this.openLoading();
       // axios get
-      // axios.get("http://localhost:5000/",
-      // { params: {
-      //   name: form.name,
-      //   id: form.id,
-      //   telNumber: form.telNumber,
-      //   keyWord: form.keyWord,
-      //   region: form.region,
-      //   date1: form.beginDate,
-      //   date2: form.endDate,
-      // }
-      // })
-      // .then(res => {
-      //   console.log(res)
-      //   app.rawRes = res;
-      //   app.isSearch = false;
-      // })
-      // .catch(err => {
-      //   console.error(err); 
-      // });
-      //
+      axios.get("http://192.168.31.176:5000/",
+      { 
+        params: {
+        name: app.form.name,
+        id: app.form.id,
+        college:app.form.school,
+        pnum: app.form.telNumber,
+        keyword: app.form.keyWord,
+        startTime: app.form.beginDate,
+        endTime: app.form.endDate,
+      }
+      })
+      .then(res => {
+        console.log(res)
+        //app.rawRes = res;
+        app.isSearch = false;
+        rLoading.close();
+      })
+      .catch(err => {
+        console.error(err); 
+        alert('妈了个巴子，没网')
+        rLoading.close();
+      });
+
     },
 
     // 点击相应的链接以后，显示详细文章信息
@@ -122,18 +166,18 @@ const app = new Vue({
       item.flag = !item.flag;
       app.$forceUpdate();
       console.log(item.flag);
-      // axios.get(url,
-      //   {params:{
-          
-      //   }
-      // })
-      // .then(res => {
-      //   console.log(res)
-      //   app.artical = res;
-      // })
-      // .catch(err => {
-      //   console.error(err); 
-      // })
+      axios.get('',
+        {params:{
+          url:item.url
+        }
+      })
+      .then(res => {
+        console.log(res)
+        Vue.set(item , 'artical' ,res.data)
+      })
+      .catch(err => {
+        console.error(err); 
+      })
     },
 
     // 在返回的content中找到关键字并加粗

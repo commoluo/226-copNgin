@@ -36,6 +36,9 @@
         <el-form-item class="elForm" label="电话">
           <el-input v-model="form.telNumber" placeholder="请输入电话"></el-input>
         </el-form-item>
+        <el-form-item class="elForm" label="身份证号">
+          <el-input v-model="form.id" placeholder="请输入ID"></el-input>
+        </el-form-item>
         <el-row>
           <el-col :span="12">
             <el-form-item class="elForm" label="关键词">
@@ -53,15 +56,15 @@
         </el-row>      
         <el-form-item class="elForm" label="有效时间">
           <el-col :span="11">
-            <el-date-picker class="elClear" type="date" placeholder="选择开始日期" v-model="form.beginDate" style="width: 100%;"></el-date-picker>
+            <el-date-picker value-format='yyyy-MM-dd' class="elClear" type="date" placeholder="选择开始日期" v-model="form.beginDate" style="width: 100%;"></el-date-picker>
           </el-col>
           <el-col class="elLine" :span="1">-</el-col>
           <el-col :span="11">
-            <el-date-picker class="elClear" type="date" placeholder="选择截止日期" v-model="form.endDate" style="width: 100%;"></el-date-picker>
+            <el-date-picker value-format='yyyy-MM-dd' class="elClear" type="date" placeholder="选择截止日期" v-model="form.endDate" style="width: 100%;"></el-date-picker>
           </el-col>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSubmit">立即创建</el-button>
+          <el-button type="primary" @click="onSubmit">搜索</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -75,8 +78,18 @@
         <span>G</span>
         <span>I</span>
         <span>N</span>
-        <span>结果</span>
+        <span>结果 {{score}}</span>
       </div>
+      <div>
+        <div class="text-effect3" v-if="score >85 " >
+          <span>{{score}}</span>
+        </div>
+        <div class="text-effect2" v-else-if="score &lt;60" >
+          <span>{{score}}</span>
+        </div>
+        <div class="text-effect" v-else>
+          <span>{{score}}</span>
+        </div>
       <!-- 返回的基本信息列表 -->
       <ul>
         <li style="margin-top: 20px ; list-style: none; font-size:large; padding: 15px 15px 15px 15px; border-radius: 4px; box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)" v-for="(item, index) in rawRes" :key="index">
@@ -84,18 +97,8 @@
           预览：{{item.abstract}}
           <!-- 在每个链接点击后显示详情文章 -->
           <div id="arti" v-show="item.flag">
-            --{{artical.content}} 
+            --{{item.artical.content}} 
           </div>
-          <div v-show="item.flag">
-            <div class="text-effect3" v-if="item.score >85 " >
-              <span>{{item.score}}</span>
-            </div>
-            <div class="text-effect2" v-else-if="item.score &lt;60" >
-              <span>{{item.score}}</span>
-            </div>
-            <div class="text-effect" v-else>
-              <span>{{item.score}}</span>
-            </div>
           </div>
         </li>
       </ul>
